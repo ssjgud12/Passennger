@@ -1,5 +1,6 @@
 package ie.atu.service;
 
+import org.springframework.stereotype.Service;
 import ie.atu.model.Passenger;
 
 import java.util.ArrayList;
