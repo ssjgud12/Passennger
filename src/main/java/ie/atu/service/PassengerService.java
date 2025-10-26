@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Service
+
 public class PassengerService {
     private final List<Passenger> store = new ArrayList<>();
 
@@ -17,15 +19,15 @@ public class PassengerService {
 
     public Optional<Passenger> findById(String id) {
         for (Passenger p : store) {
-            if (p.getPassengerID().equals(id)) {
+            if (p.getPassengerId().equals(id)) {
                 return Optional.of(p);
             }
         }
         return Optional.empty();
     }
-    public Passenger create(Passenger p)
+    public Passenger create(@org.jetbrains.annotations.NotNull Passenger p)
     {
-        if (findById(p.getPassengerID()).isPresent())
+        if (findById(p.getPassengerId()).isPresent())
         {
             throw new IllegalArgumentException("Passenger already exists");
         }

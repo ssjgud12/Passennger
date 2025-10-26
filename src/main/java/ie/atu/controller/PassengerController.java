@@ -28,7 +28,7 @@ public class PassengerController
     }
 
     @GetMapping("/{id}")
-            public ResponseEntity<Passenger> getOne(@PathVariable String id)
+    public ResponseEntity<Passenger> getOne(@PathVariable String id)
 
     {
         Optional<Passenger> maybe = serivce.findById(id);
@@ -48,7 +48,7 @@ public class PassengerController
     {
         Passenger created = serivce.create(p);
         return ResponseEntity
-                .created(URI.create("/api/passengers/"+ created.getPassengerID()))
+                .created(URI.create("/api/passengers/"+ created.getPassengerId()))
                 .body(created);
     }
 
