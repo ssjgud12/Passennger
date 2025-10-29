@@ -43,6 +43,16 @@ public class PassengerController
 
     }
 
+    @PutMapping("{/Update}")
+    {
+        public ResponseEntity<Passenger> update(@Valid @RequestBody Passenger p)
+        {
+
+        }
+    }
+
+
+
     @PostMapping
     public ResponseEntity<Passenger> create(@Valid @RequestBody Passenger p)
     {

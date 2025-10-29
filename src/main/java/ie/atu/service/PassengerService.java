@@ -1,5 +1,6 @@
 package ie.atu.service;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import org.springframework.stereotype.Service;
 import ie.atu.model.Passenger;
 
@@ -34,4 +35,47 @@ public class PassengerService {
         store.add(p);
         return p;
     }
+
+    public Optional<Passenger> update(String id, Passenger updatedPassenger)
+    {
+        // Loop through all passengers in the store
+        for (int i = 0; i < store.size(); i++) {
+            Passenger existing = store.get(i);
+
+            // Check if this passenger has the ID we're looking for
+            if (existing.getPassengerId().equals(id)) {
+                // Create updated passenger with same ID but new name/email
+                Passenger updated = Passenger.builder()
+                        .PassengerId(id)  // Keep the original ID
+                        .name(updatedPassenger.getName())  // New name
+                        .email(updatedPassenger.getEmail()) // New email
+                        .build();
+
+                // Replace the old passenger with updated one
+                store.set(i, updated);
+
+                // Return the updated passenger
+                return Optional.of(updated);
+            }
+        }
+
+        // If we didn't find the passenger, return empty
+        return Optional.empty();
+    }
+    public boolean delete(String id)
+    {
+        for (int i = 0; i < store.size(); i++)
+        {
+          Passenger p = store.get(i);
+
+            if(p.getPassengerId().equals(id))
+            {
+                store.remove(i);
+                return true;
+            }
+        }
+          return false;
+
+    }
+
 }
