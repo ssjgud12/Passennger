@@ -16,7 +16,7 @@ public class Passenger
 {
     @NotBlank
     @Size(max = 40)
-    private String PassengerId; // Changed to lowercase first letter
+    private String PassengerId;
 
     @NotBlank
     @Size(max = 60)
