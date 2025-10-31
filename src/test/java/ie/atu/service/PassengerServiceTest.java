@@ -58,7 +58,7 @@ class PassengerServiceTest {
                 .name("Og Name")
                 .email("og@email.com")
                 .build();
-        service.create(original);  // FIXED: save() → create()
+        service.create(original);
 
         Passenger updatedData = Passenger.builder()
                 .name("Updated Name")
