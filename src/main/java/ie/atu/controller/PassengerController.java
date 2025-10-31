@@ -59,4 +59,13 @@ public class PassengerController
                 .created(URI.create("/api/passengers/"+ created.getPassengerId()))
                 .body(created);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id)
+    {
+        boolean deleted = service.delete(id);
+        return deleted ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
+    }
+
 }

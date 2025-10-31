@@ -86,6 +86,30 @@ class PassengerServiceTest {
         assertFalse(result.isPresent());
     }
 
+    @Test
+    void deletePassengerSuccess()
+    {
+        Passenger passenger = Passenger.builder()
+                .PassengerId("P1")
+                .name("John Doe")
+                .email("john@email.com")
+                .build();
+        service.create(passenger);  // FIXED: save() → create()
+
+        boolean deleted = service.delete("P1");
+
+        assertTrue(deleted);
+        Optional<Passenger> found = service.findById("P1");
+        assertFalse(found.isPresent());
+    }
+
+    @Test
+    void deletePassengerNotFound()
+    {
+        boolean deleted = service.delete("NON_EXISTENT");
+        assertFalse(deleted);
+    }
+
 
 
 }

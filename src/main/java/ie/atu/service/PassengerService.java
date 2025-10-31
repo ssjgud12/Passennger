@@ -53,5 +53,23 @@ public class PassengerService {
         return Optional.empty();
     }
 
+    public boolean delete(String id)
+    {
+        for (int i = 0; i < store.size(); i++)
+        {
+            Passenger p = store.get(i);
+
+            if(p.getPassengerId().equals(id))
+            {
+                store.remove(i);
+                return true;
+            }
+        }
+        return false;
+
+    }
+
+
+
 
 }
