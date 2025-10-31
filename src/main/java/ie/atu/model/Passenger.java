@@ -16,7 +16,7 @@ public class Passenger
 {
     @NotBlank
     @Size(max = 40)
-    private String passengerID; // Changed to lowercase first letter
+    private String PassengerId; // Changed to lowercase first letter
 
     @NotBlank
     @Size(max = 60)
@@ -25,4 +25,21 @@ public class Passenger
     @NotBlank
     @Email
     private String email;
+
+    // Manually add the getter method
+    public String getPassengerId()
+    {
+        return PassengerId;
+    }
+
+    // Add other getters if needed
+    public String getName()
+    {
+        return name;
+    }
+
+    public String getEmail()
+    {
+        return email;
+    }
 }
