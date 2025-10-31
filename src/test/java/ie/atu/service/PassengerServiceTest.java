@@ -1,6 +1,7 @@
 package ie.atu.service;
 
 import ie.atu.model.Passenger;
+import ie.atu.service.PassengerService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,44 +9,83 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class PassengerServiceTest
-{
+class PassengerServiceTest {
     private PassengerService service;
 
     @BeforeEach
-    void setup () { service = new PassengerService(); }
+    void setup()
+    {
+        service = new PassengerService();
+    }
 
     @Test
-    void createThenFindById()
-    {
+    void createThenFindById() {
         Passenger p = Passenger.builder()
-                .PassengerId("A1")
-                .name("Alvin")
-                .email("Alvin@atu.ie")
+                .PassengerId("P1")
+                .name("Paul")
+                .email("paul@atu.ie")
                 .build();
 
         service.create(p);
 
-        Optional<Passenger> found = service.findById("A1");
+        Optional<Passenger> found = service.findById("P1");
         assertTrue(found.isPresent());
-        assertEquals("Alvin", found.get().getName());
+        assertEquals("Paul", found.get().getName());
     }
 
     @Test
     void duplicateIdThrows()
     {
         service.create(Passenger.builder()
-                .PassengerId("A2")
-                .name("Simon")
-                .email("Simon@atu.ie")
+                .PassengerId("P2")
+                .name("Bob")
+                .email("b@stu.ie")
                 .build());
 
         assertThrows(IllegalArgumentException.class, () ->
                 service.create(Passenger.builder()
-                        .PassengerId("A2")
-                        .name("Theodore")
-                        .email("Theodore@atu.ie")
+                        .PassengerId("P2")
+                        .name("Bob")
+                        .email("Bob@ex.com")
                         .build()));
     }
+
+    @Test
+    void updatePassengerSuccess()
+    {
+        Passenger original = Passenger.builder()
+                .PassengerId("P1")
+                .name("Og Name")
+                .email("og@email.com")
+                .build();
+        service.create(original);  // FIXED: save() → create()
+
+        Passenger updatedData = Passenger.builder()
+                .name("Updated Name")
+                .email("updated@email.com")
+                .build();
+
+        Optional<Passenger> result = service.update("P1", updatedData);
+
+        assertTrue(result.isPresent());
+        assertEquals("P1", result.get().getPassengerId());
+        assertEquals("Updated Name", result.get().getName());
+        assertEquals("updated@email.com", result.get().getEmail());
+    }
+
+    @Test
+    void updatePassengerNotFound()
+    {
+        Passenger updatedData = Passenger.builder()
+                .name("New Name")
+                .email("new@email.com")
+                .build();
+
+        Optional<Passenger> result = service.update("NON_EXISTENT", updatedData);
+
+        assertFalse(result.isPresent());
+    }
+
+
 
 }
