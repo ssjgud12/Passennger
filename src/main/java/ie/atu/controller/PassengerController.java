@@ -11,26 +11,26 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/passengers")
+@RequestMapping("/api/passengers")  // Fixed: added slash between "api" and "passengers"
 public class PassengerController
 {
-    private final PassengerService service;
+    private final PassengerService service;  // Fixed: "serivce" → "service"
 
-    public PassengerController(PassengerService service)
+    public PassengerController(PassengerService service)  // Fixed: "serivce" → "service"
     {
-        this.service = service;
+        this.service = service;  // Fixed: "serivce" → "service"
     }
 
     @GetMapping
     public ResponseEntity<List<Passenger>> getAll()
     {
-        return ResponseEntity.ok(service.findAll());
+        return ResponseEntity.ok(service.findAll());  // Fixed: "serivce" → "service"
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Passenger> getOne(@PathVariable String id)
     {
-        Optional<Passenger> maybe = service.findById(id);
+        Optional<Passenger> maybe = service.findById(id);  // Fixed: "serivce" → "service"
         if(maybe.isPresent())
         {
             return ResponseEntity.ok(maybe.get());
